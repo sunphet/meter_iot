@@ -55,7 +55,6 @@ while True:
     print("Frequency :" ,frequency)
     print("Date_time :" ,rec_date_time)
     
-
     # Posting data to database server
     url = 'https://xn--12c5cbudkbb0yh.com/meter/updatescript.php'
     post_fields = {'mcu_id' : '777888' , 'volt' : volt , 'current' : current , 'power' : power, 'energy' : energy , 'frequency' : frequency , 'rec_date_time' : rec_date_time}   #Set POST fields here and their values
@@ -69,5 +68,5 @@ while True:
     else:   
         print(json)
 
-    time.sleep(60)
+    time.sleep(50)
     
