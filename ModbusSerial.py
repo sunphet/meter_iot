@@ -68,5 +68,5 @@ while True:
     else:   
         print(json)
 
-    time.sleep(50)
+    time.sleep(10)
     
