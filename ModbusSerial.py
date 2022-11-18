@@ -32,8 +32,6 @@ def current_time():
 client = ModbusClient(method='rtu', port='/dev/ttyUSB0', timeout=20, stopbits=1,bytesize=8, parity='N', baudrate= 9600)
 
 
-
-
 try:
     client.connect()
     print("Serial port connected.")
