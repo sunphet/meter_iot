@@ -33,13 +33,13 @@ client = ModbusClient(method='rtu', port='/dev/ttyUSB0', timeout=20, stopbits=1,
 
 
 
-"""
+
 try:
     client.connect()
     print("Serial port connected.")
 except:
     print("Serial port connection error!")
-"""
+
 
 while True:
     volt = random.randint(219,230)
