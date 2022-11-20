@@ -61,83 +61,53 @@ except:
 
 
 while True:
+    print('-----------------------------------------')
+    print('MCU ID : ', mcu_id)
 
     #------------- Get voltage ---------------
     address = 0
     count   = 4
     result  = client.read_input_registers(address, count,  unit=1)
     volt = format(BinaryPayloadDecoder.fromRegisters(result.registers, Endian.Big, Endian.Big).decode_32bit_float(),'0.1f')
-    print(volt)
+    print('Volt : ',volt, ' V.')
 
     #------------- Get Current ---------------
     address = 6
     count   = 4
     result  = client.read_input_registers(address, count,  unit=1)
     current = format(BinaryPayloadDecoder.fromRegisters(result.registers, Endian.Big, Endian.Big).decode_32bit_float(),'0.2f')
-    print(current)
+    print('Current : ',current, ' A.')
 
     #------------- Get voltage ---------------
     address = 70
     count   = 4
     result  = client.read_input_registers(address, count,  unit=1)
-    Frequency = format(BinaryPayloadDecoder.fromRegisters(result.registers, Endian.Big, Endian.Big).decode_32bit_float(),'0.1f')
-    print(Frequency)
+    frequency = format(BinaryPayloadDecoder.fromRegisters(result.registers, Endian.Big, Endian.Big).decode_32bit_float(),'0.1f')
+    print('Frequency : ',frequency, ' Hz.')
+    
+    #------------- Get power ---------------
+    address = 12
+    count   = 4
+    result  = client.read_input_registers(address, count,  unit=1)
+    power = format(BinaryPayloadDecoder.fromRegisters(result.registers, Endian.Big, Endian.Big).decode_32bit_float(),'0.1f')
+    print('Power : ',power, ' W.')
+
     #------------- Get Energy ---------------
     address = 72
     count   = 4
     result  = client.read_input_registers(address, count,  unit=1)
-    Energy = format(BinaryPayloadDecoder.fromRegisters(result.registers, Endian.Big, Endian.Big).decode_32bit_float(),'0.1f')
-    print(Energy)
-
-
-
-
-
-    """
-
-
-    #volt = client.read_holding_registers(address=1, count=2, unit=1)
-    volt = client.read_input_registers(address=0 , count=4, unit=1)        
-
+    energy = format(BinaryPayloadDecoder.fromRegisters(result.registers, Endian.Big, Endian.Big).decode_32bit_float(),'0.1f')
+    print('Energy : ',energy, ' kWh.')
+    
+    #------------- Date time ---------------
     rec_date_time = current_time()
+    print('Time stamp : ',rec_date_time)
 
-    volt = random.randint(219,230)
-    current = random.randint(50,1200)
-    power = random.randint(1200,1999)
-    energy = random.randint(4000,8000)
-    frequency = round(random.uniform(49.00, 50.99),2)
-    
-
-    print("\nVoltage :" ,volt)
-    print("Current :" ,current)
-    print("Energy :" ,energy)
-    print("Frequency :" ,frequency)
-    print("Date_time :" ,rec_date_time)
-   
-    a = volt.registers[0] << 24 & volt.registers[1] << 16 & volt.registers[2] << 8 & volt.registers[3]
-    
-    print(a)
-
-    print("Voltage 0 :" ,volt.registers[0])
-    print("Voltage 1 :" ,volt.registers[1])
-    print("Voltage 2 :" ,volt.registers[2])
-    print("Voltage 3 :" ,volt.registers[3])
-
-
-
-    print( hex(volt.registers[0]))
-    print( hex(volt.registers[1]))
-
-    mypack = pack('>HH',volt.registers[0],volt.registers[1])
-    print (mypack)
-    f = unpack('f', mypack)[0]
-    print (f)
-
+ 
     # Posting data to database server
     url = 'https://xn--12c5cbudkbb0yh.com/meter/updatescript.php'
-    #post_fields = {'mcu_id' : '777888' , 'volt' : volt , 'current' : current , 'power' : power, 'energy' : energy , 'frequency' : frequency , 'rec_date_time' : rec_date_time}   #Set POST fields here and their values
-    post_fields = {'mcu_id' : '777888' , 'volt' : volt , 'rec_date_time' : rec_date_time}   #Set POST fields here and their values
-    
+    post_fields = {'mcu_id' : '777888' , 'volt' : volt , 'current' : current , 'power' : power, 'energy' : energy , 'frequency' : frequency , 'rec_date_time' : rec_date_time}   #Set POST fields here and their values
+     
     #xpost_fields = {'mcu_id' : mcu_id }   #Set POST fields here and their values
 
     request = Request(url, urlencode(post_fields).encode())     # Posting data to webpage 
@@ -148,6 +118,6 @@ while True:
         print('Can\'t connect to server!') 
     else:   
         print(json)
- """
-    time.sleep(1)
+
+    time.sleep(60)
        
